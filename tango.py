@@ -74,6 +74,10 @@ class TangoServer(object):
             from vmms.distDocker import DistDocker
 
             vmms = DistDocker()
+        elif Config.VMMS_NAME == "ecsSSH":
+            from vmms.ecsSSH import EcsSSH
+
+            vmms = EcsSSH()
 
         self.preallocator = Preallocator({Config.VMMS_NAME: vmms})
         self.jobQueue = JobQueue(self.preallocator)
@@ -252,6 +256,7 @@ class TangoServer(object):
         try:
             # For each supported VMM system, get the instances it knows about,
             # and kill those in the current Tango name space.
+            self.log.debug(f"VMMS available: {vmms}")
             for vmms_name in vmms:
                 vobj = vmms[vmms_name]
                 vms = vobj.getVMs()

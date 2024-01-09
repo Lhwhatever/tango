@@ -149,5 +149,6 @@ if __name__ == "__main__":
     port = Config.PORT
     if len(sys.argv) > 1:
         port = int(sys.argv[1])
+    print(tangoREST.tango.preallocator.vmms)
     tangoREST.tango.resetTango(tangoREST.tango.preallocator.vmms)
     asyncio.run(main(port))
